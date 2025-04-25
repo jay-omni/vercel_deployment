@@ -18,7 +18,7 @@ on:
 
 env:
   # Vercel Deploy Hooks
-  DEV_VERCEL_DEPLOY_HOOK: https://api.vercel.com/v1
+  DEV_VERCEL_DEPLOY_HOOK: https://ipconfig.io
   TEST_VERCEL_DEPLOY_HOOK: https://api.vercel.com/v1/integrations/deploy/prj_xxfahXm1w8Jp0sggQxOx0QjcS48j/q3PFlD1NnD
   STAGE_VERCEL_DEPLOY_HOOK: https://api.vercel.com/v1/integrations/deploy/prj_IiR0vlrTNsASachdmW7qv5ODZQeg/bsybtC1saE
   # tmp: deploy main branch to stage env on Vercel
