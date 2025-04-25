@@ -123,7 +123,7 @@ jobs:
           TITLE=$(
             if [ "${{ env.IS_TAG }}" = "true" ]; then
               echo "通知: Vercel部署 - 🚀 New Release Tag"
-            elif ; then
+            elif [ "${{ env.IS_PR }}" == "true" ]; then
               echo "通知: Vercel部署 - 🔀 Pull Request Update"
             else
               echo "通知: Vercel部署 - 🔄 Branch Update"
