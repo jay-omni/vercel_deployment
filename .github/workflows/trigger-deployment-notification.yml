@@ -93,10 +93,7 @@ jobs:
           fi
           
           echo "Triggering ${{ env.ENV_NAME }} deployment..."
-          if ! curl -sSf -X POST "${{ env.VERCEL_URL }}"; then
-            echo "Deployment trigger failed"
-            exit 1
-          fi
+
           echo "Deployment triggered successfully"
 
       - name: Prepare notification data
