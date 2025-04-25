@@ -102,16 +102,33 @@ jobs:
         id: prepare-notification
         run: |
           # Create description based on event type
-          if [ "${{ env.IS_TAG }}" == "true" ]; then
+
             DESCRIPTION=$(echo "**Tag:** ${{ env.TAG_NAME }}\n**Environment:** ${{ env.ENV_NAME }}" | jq -Rs .)
-            TITLE=$(echo "通知：Vercel部署 - 🚀 New Release Tag" | jq -R .)
-          # elif [ "${{ env.IS_PR }}" == "true" ]; then
-          #   TITLE=$(echo "通知：Vercel部署 - 🔀 Pull Request Update" | jq -R .)
-          #   DESCRIPTION=$(echo "**PR:** #${{ github.event.number }}\n**Branch:** ${{ github.head_ref }}" | jq -R .)
-          else
+
+            DESCRIPTION=$(echo "**PR:** #${{ github.event.number }}\n**Branch:** ${{ github.head_ref }}" | jq -R .)
+
             DESCRIPTION=$(echo "**Branch:** ${{ github.ref_name }}\n**Environment:** ${{ env.ENV_NAME }}" | jq -Rs .)
-            TITLE=$(echo "通知：Vercel部署 - 🔄 Branch Update" | jq -R .)
-          fi
+
+
+          DESCRIPTION=$(
+            if [ "${{ env.IS_TAG }}" = "true" ]; then
+              printf "**Tag: ** %s\n**Environment: ** %s" "${{ env.TAG_NAME }}" "${{ env.ENV_NAME }}"
+            elif [ "${{ env.IS_PR }}" == "true" ]; then
+              printf "**PR: ** %s\n**Branch: ** %s" "${{ github.event.number }}" "${{ github.head_ref }}"
+            else
+              printf "**Branch: ** %s\n**Environment: ** %s" "${{ github.ref_name }}" "${{ env.ENV_NAME }}"
+            fi | jq -Rs .
+          )
+
+          TITLE=$(
+            if [ "${{ env.IS_TAG }}" = "true" ]; then
+              echo "通知: Vercel部署 - 🚀 New Release Tag"
+            elif ; then
+              echo "通知: Vercel部署 - 🔀 Pull Request Update"
+            else
+              echo "通知: Vercel部署 - 🔄 Branch Update"
+            fi | jq -R .
+          )
           
           # Create the JSON payload using jq
           CARD_PAYLOAD=$(jq -n \
