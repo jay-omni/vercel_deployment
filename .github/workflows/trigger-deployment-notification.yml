@@ -206,7 +206,7 @@ jobs:
         if: always()
         run: |
           echo "Sending notification to Lark..."
-          if ! curl -sSf -X POST \
+          if ! curl -X POST \
             "${{ env.LARK_BOT_HOOK }}" \
             -H "Content-Type: application/json" \
             -d '${{ steps.prepare-notification.outputs.CARD_PAYLOAD }}'; then
