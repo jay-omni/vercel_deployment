@@ -199,7 +199,8 @@ jobs:
               }
             }')
 
-          echo "CARD_PAYLOAD=${CARD_PAYLOAD}" >> $GITHUB_OUTPUT
+          CARD_PAYLOAD_ESCAPED=$(echo "$CARD_PAYLOAD" | jq -c . | sed 's/"/\\"/g')
+          echo "CARD_PAYLOAD=${CARD_PAYLOAD_ESCAPED}" >> $GITHUB_OUTPUT
 
       - name: Send Lark Notification
         if: always()
