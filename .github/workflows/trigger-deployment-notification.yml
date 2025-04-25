@@ -214,3 +214,8 @@ jobs:
             exit 1
           fi
           echo "Notification sent successfully"
+
+      - name: Debug payload
+        run: |
+          echo "Generated payload:"
+          echo '${{ steps.prepare-notification.outputs.CARD_PAYLOAD }}' | jq .
