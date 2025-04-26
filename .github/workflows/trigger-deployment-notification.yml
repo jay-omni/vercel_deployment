@@ -141,55 +141,55 @@ jobs:
             '{
               "msg_type": "interactive",
               "card": {
-                # "elements": [
-                #   {
-                #     "tag": "div",
-                #     "text": {
-                #       "content": $description,
-                #       "tag": "lark_md"
-                #     }
-                #   },
-                #   {
-                #     "tag": "div",
-                #     "fields": [
-                #       {
-                #         "is_short": true,
-                #         "text": {
-                #           "content": ("**Repository:** " + $repo),
-                #           "tag": "lark_md"
-                #         }
-                #       },
-                #       {
-                #         "is_short": true,
-                #         "text": {
-                #           "content": ("**Commit:** " + $sha),
-                #           "tag": "lark_md"
-                #         }
-                #       },
-                #       {
-                #         "is_short": true,
-                #         "text": {
-                #           "content": ("**Triggered by:** " + $actor),
-                #           "tag": "lark_md"
-                #         }
-                #       }
-                #     ]
-                #   },
-                #   {
-                #     "tag": "action",
-                #     "actions": [
-                #       {
-                #         "tag": "button",
-                #         "text": {
-                #           "content": "Website / Vercel Domain",
-                #           "tag": "lark_md"
-                #         },
-                #         "url": $domain,
-                #         "type": "default"
-                #       }
-                #     ]
-                #   }
-                # ],
+                "elements": [
+                  {
+                    "tag": "div",
+                    "text": {
+                      "content": $description,
+                      "tag": "lark_md"
+                    }
+                  },
+                  {
+                    "tag": "div",
+                    "fields": [
+                      {
+                        "is_short": true,
+                        "text": {
+                          "content": ("**Repository:** " + $repo),
+                          "tag": "lark_md"
+                        }
+                      },
+                      {
+                        "is_short": true,
+                        "text": {
+                          "content": ("**Commit:** " + $sha),
+                          "tag": "lark_md"
+                        }
+                      },
+                      {
+                        "is_short": true,
+                        "text": {
+                          "content": ("**Triggered by:** " + $actor),
+                          "tag": "lark_md"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "tag": "action",
+                    "actions": [
+                      {
+                        "tag": "button",
+                        "text": {
+                          "content": "Website / Vercel Domain",
+                          "tag": "lark_md"
+                        },
+                        "url": $domain,
+                        "type": "default"
+                      }
+                    ]
+                  }
+                ],
                 "header": {
                   "title": {
                     "content": $title,
@@ -199,7 +199,9 @@ jobs:
               }
             }')
 
-          echo "CARD_PAYLOAD=${CARD_PAYLOAD}" >> $GITHUB_OUTPUT
+          echo "CARD_PAYLOAD<<EOF" >> $GITHUB_OUTPUT
+          echo "$CARD_PAYLOAD" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Send Lark Notification
         if: always()
