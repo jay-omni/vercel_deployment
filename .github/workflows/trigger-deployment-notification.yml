@@ -130,13 +130,18 @@ jobs:
           
           # Create the JSON payload using jq
           CARD_PAYLOAD=$(jq -n \
-            --argjson description "$DESCRIPTION" \
-            --argjson title "$TITLE" \
-            --argjson repo "$(echo '${{ github.repository }}' | jq -R .)" \
+            --arg description "$DESCRIPTION" \
+            --arg title "$TITLE" \
+            --arg repo "$(echo '${{ github.repository }}' | jq -R .)" \
             --arg sha "$(echo '${{ github.sha }}' | cut -c1-7)" \
-            --argjson actor "$(echo '${{ github.actor }}' | jq -R .)" \
+            --arg actor "$(echo '${{ github.actor }}' | jq -R .)" \
             --arg domain "$ENV_DOMAIN" \
-            '{"msg_type":"text","content":{"text":"request example"}}')
+            '{
+              "msg_type": "text",
+              "content": {
+                "text": "Deployment Notification\n\nRepository: \($repo)\nCommit: \($sha)\nActor: \($actor)\nEnvironment: \($domain)\nTitle: \($title)\nDescription: \($description)"
+              }
+              }')
 
           echo "CARD_PAYLOAD=${CARD_PAYLOAD}" >> $GITHUB_OUTPUT
 
