@@ -136,16 +136,17 @@ jobs:
             --arg sha "$(echo '${{ github.sha }}' | cut -c1-7)" \
             --arg actor "$(echo '${{ github.actor }}' | jq -R .)" \
             --arg domain "$ENV_DOMAIN" \
-            '{
+            "{
               "msg_type": "text",
               "content": {
                 "text": "Test Message"
               }
-              }')
+              }")
 
           echo "CARD_PAYLOAD=${CARD_PAYLOAD}" >> $GITHUB_OUTPUT
 
       - name: Debug payload
+        if: always()
         run: |
           echo "Generated payload:"
           echo '${{ steps.prepare-notification.outputs.CARD_PAYLOAD }}' | jq .
