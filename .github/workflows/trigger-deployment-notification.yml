@@ -136,7 +136,9 @@ jobs:
               }
             }')
 
-          echo "CARD_PAYLOAD=${CARD_PAYLOAD}" >> $GITHUB_OUTPUT
+          echo "CARD_PAYLOAD<<EOF" >> $GITHUB_OUTPUT
+          echo "$CARD_PAYLOAD" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Debug payload
         if: always()
