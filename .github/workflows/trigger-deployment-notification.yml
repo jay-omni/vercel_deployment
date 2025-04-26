@@ -18,17 +18,17 @@ on:
 env:
   # Vercel Deploy Hooks
   DEV_VERCEL_DEPLOY_HOOK: https://api.vercel.com/v1
-  TEST_VERCEL_DEPLOY_HOOK: https://api.vercel.com/v1/integrations/deploy/prj_xxfahXm1w8Jp0sggQxOx0QjcS48j/q3PFlD1NnD
-  STAGE_VERCEL_DEPLOY_HOOK: https://api.vercel.com/v1/integrations/deploy/prj_IiR0vlrTNsASachdmW7qv5ODZQeg/bsybtC1saE
+  TEST_VERCEL_DEPLOY_HOOK: https://api.vercel.com/v1/
+  STAGE_VERCEL_DEPLOY_HOOK: https://api.vercel.com/v1/
   # tmp: deploy main branch to stage env on Vercel
-  PROD_VERCEL_DEPLOY_HOOK: https://api.vercel.com/v1/integrations/deploy/prj_IiR0vlrTNsASachdmW7qv5ODZQeg/bsybtC1saE
+  PROD_VERCEL_DEPLOY_HOOK: https://api.vercel.com/v1/
 
   # Frontend Websites / Domains
-  DEV_DOMAIN: https://
-  TEST_DOMAIN: https://test.polyflow.tech/
-  STAGE_DOMAIN: https://stage-pid-frontend.vercel.app/
+  DEV_DOMAIN: https://google.com
+  TEST_DOMAIN: https://google.com
+  STAGE_DOMAIN: https://google.com
   # tmp: use stage domain
-  PROD_DOMAIN: https://stage-pid-frontend.vercel.app/
+  PROD_DOMAIN: https://google.com
 
   # Lark/Feishu Bot Webhook
   LARK_BOT_HOOK: https://open.larksuite.com/open-apis/bot/v2/hook/4caeb13f-8054-4284-bd67-bed7a918b750
@@ -215,8 +215,3 @@ jobs:
             exit 1
           fi
           echo "Notification sent successfully"
-
-      - name: Debug payload
-        run: |
-          echo "Generated payload:"
-          echo '${{ steps.prepare-notification.outputs.CARD_PAYLOAD }}' | jq .
