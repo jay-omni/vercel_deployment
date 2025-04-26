@@ -139,11 +139,16 @@ jobs:
             '{
               "msg_type": "text",
               "content": {
-                "text": "Deployment Notification\n\nRepository: \($repo)\nCommit: \($sha)\nActor: \($actor)\nEnvironment: \($domain)\nTitle: \($title)\nDescription: \($description)"
+                "text": "Test Message"
               }
               }')
 
           echo "CARD_PAYLOAD=${CARD_PAYLOAD}" >> $GITHUB_OUTPUT
+
+      - name: Debug payload
+        run: |
+          echo "Generated payload:"
+          echo '${{ steps.prepare-notification.outputs.CARD_PAYLOAD }}' | jq .
 
       - name: Send Lark Notification
         if: always()
@@ -157,8 +162,3 @@ jobs:
             exit 1
           fi
           echo "Notification sent successfully"
-
-      - name: Debug payload
-        run: |
-          echo "Generated payload:"
-          echo '${{ steps.prepare-notification.outputs.CARD_PAYLOAD }}' | jq .
